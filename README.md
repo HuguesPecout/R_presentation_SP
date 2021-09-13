@@ -1,6 +1,7 @@
-# Data analysis with R
+# ANÁLISIS DE DATOS CON R
 
-## Presentation slide
+## Contextualización y presentación de R y Rstudio
 
--> [View slides](https://hpecout.gitpages.huma-num.fr/R_presentation_SP/#/)
-
+- [Ver diapositivas](https://huguespecout.github.io/R_presentation_SP/#/), Traducido por Francois Rebaudo
+- [Version française](https://huguespecout.github.io/R_presentation_FR/#/)
+- [English version](https://huguespecout.github.io/R_presentation_EN/#/), translated by Violaine Jurie       
