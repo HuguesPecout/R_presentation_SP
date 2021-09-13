@@ -1,4 +1,4 @@
-# ANÁLISIS DE DATOS CON R
+# Análisis de datos con R
 
 ## Contextualización y presentación de R y Rstudio
 
