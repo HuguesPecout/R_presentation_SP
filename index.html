@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Análisis de datos con R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/black.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="styles.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Análisis de datos con R</h1>
+    <h2 class="author"><h2 class="place">
+Contextualización y presentación de R y Rstudio
+</h2></h2>
+    <h3 class="date"><br><img src="figure/Rzine.png" width="240"/><br>
+<h3 class="mail">
+<a href="mailto:hugues.pecout@cnrs.fr" class="email">hugues.pecout@cnrs.fr</a>
+</h3>
+<font style="font-size:50%;color:#757575;">Traducido por </font>
+<h3 class="mail">
+<a href="mailto:francois.rebaudo@egce.cnrs-gif.fr" class="email">francois.rebaudo@egce.cnrs-gif.fr</a>
+</h3></h3>
+</section>
+
+<section><section id="softwares-estadísticos" class="title-slide slide level1"><h1>Softwares estadísticos</h1></section><section id="sas-spad-spss-y-r" class="slide level2">
+<h2>SAS, SPAD, SPSS… y R</h2>
+<p><br></p>
+<p class="smallpcenter">
+<strong>Desde principios de la década de 2000, un nuevo software</strong> está ganando importancia y <strong>se está estableciendo gradualmente como un punto de referencia</strong>, al igual que los tres principales software de análisis de datos que dominan el mercado.
+</p>
+<p class="R">
+<img src="figure/R.png"  width="200"/>
+</p>
+<p class="moyp">
+<strong>Se puede imaginar que los usuarios de software estadístico convergerán gradualmente hacia el software (lenguaje) R</strong>.
+</p>
+<aside class="notes">
+El mundo de la cienca y las empresas especializadas en minería de datos utilizan diferentes programas estadísticos como SAS, SPAD, SPSS o Stata. Este software, no necesariamente fácil de manejar, permiten un procesamiento más complejo que el que se podría hacer con un software convencional como la hoja de cálculo Excel.
+</aside>
+</section><section id="software-propietarios-son" class="slide level2">
+<h2>Software Propietarios son…</h2>
+<h3 id="pagando">Pagando</h3>
+<img src="figure/spss.png" width="500"/>
+</p>
+<p class="xsmallp" align="center">
+Licencia SPSS <em>Base edition</em>
+</p>
+<aside class="notes">
+La mayoría del software estadístico se vende por varios miles de pesos. Y en general, con una suscripción de varios cientos de pesos mexicanos por mes/año y por computadora
+</aside>
+</section><section id="no-son-multiplataforma" class="slide level2">
+<h2>No son multiplataforma</h2>
+<p><br> <br></p>
+<aside class="notes">
+Los principales programas informáticos estadísticos patentados no están disponibles en todos los sistemas operativos
+</aside>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Software/Sistemas</th>
+<th style="text-align: left;">Windows</th>
+<th style="text-align: left;">MacOS</th>
+<th style="text-align: left;">Linux</th>
+<th style="text-align: left;">BSD</th>
+<th style="text-align: left;">Otros Unix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SAS</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">terminado</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">sí</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SPAD</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SPSS</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stata</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+</tr>
+</tbody>
+</table>
+<p class="xsmallp" align="center">
+<em><a href="https://en.wikipedia.org/wiki/Comparison_of_statistical_packages" class="uri">https://en.wikipedia.org/wiki/Comparison_of_statistical_packages</a></em>
+</p>
+</section><section id="son-especializados" class="slide level2">
+<h2>Son especializados</h2>
+<aside class="notes">
+<p>Estos programas de software se presentan como ‘generalistas’, sin embargo nunca permiten llevar a cabo todas las técnicas de procesamiento y análisis estadístico existentes. Cada uno de estos programas tiene diferentes especializaciones.</p>
+<p>De acuerdo con una rápida investigación personal:</p>
+Además, estos software <strong>ofrecen principalmente funcionalidades de análisis estadístico, no más.</strong>
+</aside>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>SPSS</strong> : orientado a las ciencias sociales</li>
+<li><strong>SPAD</strong> : orientado a la toma de decisiones</li>
+<li><strong>Stata</strong> : orientado a economistas y epidemiólogos</li>
+<li><strong>SAS</strong> : bastante completo, pero limitado en algunas áreas (ex: gráfica)</li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+Ofrecen <strong>poco o nada</strong> de <strong>análisis de redes</strong>, de <strong>análisis de secuencias</strong> y <strong>lexicometría</strong> (excepto SPAD)… Y muy pocas funcionalidades de valorización.
+</p>
+</section><section id="son-limitados" class="slide level2">
+<h2>Son limitados</h2>
+<p class="moyp3">
+<strong>La gestión centralizada inducida por los límites de:</strong>
+</p>
+<ul class="pucsmall">
+<ul>
+<li><strong>Sostenibilidad</strong></li>
+<li><strong>Libertad de uso</strong></li>
+<li><strong>Compatibilidad</strong> con otros programas (formatos de salida)</li>
+<li><strong>Actualización</strong> y compatibilidad entre versiones</li>
+<li><strong>Desarrollo</strong> de nuevas funcionalidades</li>
+<li><strong>Idiomas</strong> disponibles (software y ayuda)</li>
+<li><strong>Recursos de información</strong> disponibles</li>
+</ul>
+</ul>
+</section><section id="son-obstáculos-para" class="slide level2">
+<h2>Son obstáculos para :</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li>La <strong>capacitación</strong></li>
+<li>La <strong>práctica</strong></li>
+<li>El <strong>trabajo colaborativo</strong></li>
+<li>El <strong>trabajo interdisciplinario</strong></li>
+<li>El <strong>trabajo reproducible</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="normp">
+Por eso usamos R
+</p>
+<aside class="notes">
+<p>Que permite realizar cadenas de procesamiento completas (desde la recopilación de datos hasta la difusión de los resultados) reproducibles por todos e ilimitadas en el tiempo.</p>
+Por estas razones, la comunidad de usuarios de programas estadísticos <strong>está convergiendo</strong> gradualmente <strong>hacia el uso de R</strong>
+</aside>
+</section></section>
+<section><section id="section" class="title-slide slide level1" data-background="figure/RvsPython.png" data-background-size="1000px"><h1></h1></section><section id="hermanos-enemigos" class="slide level2">
+<h2>Hermanos enemigos</h2>
+<aside class="notes">
+<strong>Es un antiguo debate</strong>, para el cual nadie ha encontrado la respuesta. ¿<strong>Es mejor usar</strong> <strong><em>R</em></strong> <strong>o</strong> <strong><em>Python</em></strong> que tienen mismas características)? Nadie ha sido capaz de responder
+</aside>
+<p><br></p>
+<p class="moyp">
+<strong>Dos lenguajes</strong> utilizados para el análisis y el procesamiento de datos.<br />
+<strong>Muy a menudo se comparan por sus similares funcionalidades</strong>…
+</p>
+<p align="center""><img src="figure/Tweet_1.PNG"  width="500"/></p>
+<p class="normp">
+La elección entre <strong>R</strong> o <strong>Python</strong> depende principalmente de<br />
+¿<strong>Quién soy</strong> y <strong>qué quiero hacer</strong>?
+</p>
+</section><section id="dos-comunidades" class="slide level2">
+<h2>Dos comunidades</h2>
+<p class="moyp" align="center" style="margin-bottom:0px;">
+<strong>diferentes…</strong>
+</p>
+<div id="left" style="padding: 20px 0px 0px 20px;">
+<p align="center" style="padding-top:0px 0px 0px 0px;margin-top:0px;">
+<img src="figure/R.png"  width="130"/>
+</p>
+<p align="center" style="padding-top:0px 0px 0px 0px;margin-top:0px;">
+<img src="figure/Tweet_2.PNG"  width=350"/>
+</p>
+<ul class="xpucsmall" style="margin-top:30px;">
+<ul>
+<li>Comunidad <strong>accesible</strong> e <strong>inclusiva</strong></li>
+<li><strong>Documentación</strong> rica y <strong>estructurada</strong></li>
+<li>Disciplina : <strong>análisis de datos </strong></li>
+<li>Profesiones : <strong>investigación &amp; desarrollo</strong></li>
+</ul>
+</ul>
+</div>
+<div id="right">
+<p align="center" style="margin-top:0px;padding-top:0px;">
+<img src="figure/Python.png"  width="100"/>
+</p>
+<p align="center" style="padding-top:0px 0px 0px 0px;margin-top:0px;">
+<img src="figure/Tweet_3.PNG"  width="330"/>
+</p>
+<ul class="xpucsmall" style="margin-top:0px;">
+<ul>
+<li>Comunidad de <strong>especialistas</strong></li>
+<li>Lenguaje <strong>más utilizado</strong></li>
+<li>Disciplina : <strong>ciencia de los datos</strong></li>
+<li>Profesiones : <strong>informático</strong>, <strong>desarrollador</strong>…</li>
+</ul>
+</ul>
+</div>
+<p><br></p>
+</section><section id="especificaciones" class="slide level2">
+<h2>Especificaciones</h2>
+<aside class="notes">
+Procesamiento de Lenguajes Naturales
+</aside>
+<div id="left">
+
+<p class="moyp" align="center" style="padding-top:0px;margin-top:0px;">
+<strong>R</strong> tiene tanto cerebro…
+<p>
+<p align="center" style="padding-top:0px;margin-top:30px;">
+<img src="figure/batman.png"  width="180"/>
+</p>
+<ul class="xpucsmall" style="margin-top:20px;">
+<ul>
+<li><strong>Más fácil de manejar</strong> (EDI Rstudio)</li>
+<li><strong>Análisis estadístico</strong></li>
+<li><strong>Representación gráfica</strong></li>
+<li><strong>Valorización</strong> (markdown, aplicación…)</li>
+</ul>
+</ul>
+<p class="smallpcenter3">
+Por los <strong>usuarios menos avanzados</strong> en la programación,<br />
+especializados en el <strong>análisis de datos</strong>
+<p>
+</div>
+<div id="right">
+
+<p class="moyp" align="center" style="padding-top:0px;margin-top:0px;">
+…como <strong>Python</strong> tiene músculos
+<p>
+<p style="align:center;margin-top:0px 0px 0px 0px;padding-top:0px 0px 0px 0px;">
+<img src="figure/superman.png"  width="150"/>
+</p>
+<ul class="xpucsmall" style="margin-top:20px;">
+<ul>
+<li>Más <strong>potente</strong> y generalista</li>
+<li>Gestión de <strong>datos grandes</strong></li>
+<li><strong>Web scraping</strong> et <strong>NLP</strong></li>
+<li><strong>Desarrollo de software</strong></li>
+</ul>
+</ul>
+<p class="smallpcenter3">
+Por <strong>usuarios avanzados</strong> en la programación,<br />
+especializados en la <strong>ciencia de los datos</strong>
+<p>
+</div>
+</section></section>
+<section><section id="section-1" class="title-slide slide level1" data-background="figure/R.png" data-background-size="450px"><h1></h1></section><section id="historia-de-r" class="slide level2">
+<h2>Historia de R</h2>
+<p><br></p>
+<aside class="notes">
+Inicialmente los creadores querían probar algunas ideas sobre cómo se podría construir un entorno estadístico..
+</aside>
+<p class="smallpcenter">
+<strong>R se basa en el lenguaje de programación S</strong>, creado en 1988
+</p>
+<ul class="xpucsmall">
+<ul>
+<li><strong>1992</strong>: <strong>R. Gentleman</strong> y <strong>R. Ihaka están comenzando el desarrollo</strong> (proyecto de investigación)</li>
+<li>1993: <strong>Primeras versiones binarias</strong> de R publicadas en Statlib</li>
+<li><strong>1995</strong>: <strong>R se distribuyó por primera vez como software de código abierto, bajo la licencia GPL2</strong></li>
+<li>1997: Creación del <em>R core group</em>. Creación del CRAN (por K. Jornik and F. Leisch)</li>
+<li>1999: El sitio web de R <em>r-project.org</em> es fundado. Primera reunión en persona del <em>R core team</em></li>
+<li><strong>2000</strong>: <strong>R 1.0.0</strong> publicado. John Chambers (creador del lenguaje S), se une al <em>R Core team</em></li>
+<li>2001: Creación de <em>R News</em> (que se convertirá en el <em>R Journal</em>)</li>
+<li><strong>2003</strong>: <strong>Creación de la</strong> <strong><em>R Foundation</em></strong></li>
+<li>2004: Primera Conferencia <em>UseR!</em> (Viena)</li>
+<li><strong>2004</strong>: <strong>R 2.0.0</strong> publicado</li>
+<li>2009: Primera edición del <em>R Journal</em></li>
+<li><strong>2013</strong>: <strong>R 3.0.0</strong> publicado</li>
+<li><strong>2015</strong>: <strong>Creación del</strong> <strong><em>R Consortium</em></strong> (con la participación de la <em>R Foundation</em>)</li>
+</ul>
+</ul>
+<br>
+<p class="xsmallp" align="center">
+<em><a href="https://blog.revolutionanalytics.com/2017/10/updated-history-of-r.html" class="uri">https://blog.revolutionanalytics.com/2017/10/updated-history-of-r.html</a></em>
+</p>
+</section><section id="apoyos-importantes" class="slide level2">
+<h2>Apoyos importantes</h2>
+<aside class="notes">
+<p>R no es el fruto de unos pocos investigadores y actores del mundo del software libre.</p>
+R no es sólo un programa de software de moda
+</aside>
+<p><br></p>
+<p class="normp">
+Es el resultado de <strong>30 años de investigación y desarrollo</strong>.
+</p>
+<p><br></p>
+<p>Varios agentes económicos importantes <strong>financian</strong> el desarrollo de <strong>R</strong>, como <strong><em>Microsoft</em></strong>, <strong><em>Google</em></strong>, <strong><em>Oracle</em></strong>, <strong><em>Esri</em></strong>…</p>
+<p><br></p>
+<p class="moyp">
+<a href="https://www.r-consortium.org/members" class="uri">https://www.r-consortium.org/members</a>.
+</p>
+</section><section id="libre-y-multi-plataforma" class="slide level2">
+<h2>Libre y multi-plataforma</h2>
+<aside class="notes">
+Esto significa que <strong>forma parte del movimiento de software libre</strong> (iniciado por Richard Stallman en 1985), <strong>que es un movimiento político y social</strong> cuyo enfoque consiste en <strong>ofrecer software libre de secretos comerciales</strong> con <strong>código fuente libre</strong>. Utilizable en todos los sistemas operativos.
+</aside>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>R es un lenguaje y software libre (código abierto)</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li>Es parte de la lista de <strong>paquetes de GNU GPLv3</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>R es multi-plataforma</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Software/Sistemas</th>
+<th style="text-align: left;">Windows</th>
+<th style="text-align: left;">MacOS</th>
+<th style="text-align: left;">Linux</th>
+<th style="text-align: left;">BSD</th>
+<th style="text-align: left;">Otros Unix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">R</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">sí</td>
+<td style="text-align: left;">sí</td>
+</tr>
+</tbody>
+</table>
+</section><section id="desarrollo-ilimitado" class="slide level2">
+<h2>Desarrollo ilimitado</h2>
+<p><br></p>
+<aside class="notes">
+<p>llamadas <strong>funciones primitivas. ¡Estas 2292 funciones primitivas ya permiten lograr muchas cosas!</strong></p>
+<p>Funciones primitivas son contenidas en 7 bibliotecas (base, estadísticas, gráficos…) cargadas automáticamente.</p>
+<p>Un paquete suele estar compuesto por una biblioteca de funciones y documentación.</p>
+<p>Por lo tanto,</p>
+<p>de alto nivel</p>
+<p>ofrece funciones para el</p>
+</aside>
+<p class="smallpcenter">
+<strong>R ofrece 2292 funciones</strong> estadísticas y gráficas <strong>estándar</strong> (primitivas)
+</p>
+<p class="smallpcenter">
+Sobre esta base común, se pueden <strong>añadir muchas paquetes</strong>, puestas a disposición a través el <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html"><strong><em>Comprehensive R Archive Network</em></strong></a> (<strong>CRAN</strong>) :
+</p>
+<ul class="xpucsmall">
+<ul>
+<li>Paquete <strong><em>quanteda</em></strong> - <strong>análisis de textos</strong></li>
+<li>Paquete <strong><em>igraph</em></strong> - <strong>análisis de la red</strong></li>
+<li>Paquete <strong><em>sf</em></strong> - <strong>manipulación de datos espaciales</strong></li>
+<li>Paquete <strong><em>shiny</em></strong> - <strong>aplicaciones web interactivas</strong></li>
+<li>…</li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+<strong>R tiene una estructura modular que permite una amplia gama de posibles aplicaciones</strong>. <strong>La expansión sólo está limitada por las contribuciones</strong>.
+</p>
+</section><section id="desarrollo-ilimitado-1" class="slide level2">
+<h2>Desarrollo ilimitado</h2>
+<p><br></p>
+<p class="smallpcenter">
+Número de paquetes disponibles en el <a href="https://cran.r-project.org/">CRAN</a>
+</p>
+<img src="figure/graph.png"  width="1100"/>
+</p>
+</section><section id="versátil" class="slide level2">
+<h2>Versátil</h2>
+<p><br></p>
+<aside class="notes">
+<p>La creciente comunidad de usuarios y colaboradores de R se refleja en la <strong>notable versatilidad del programa</strong>.</p>
+<p><strong>Las extensiones son particularmente interesantes</strong> para las etapas de <strong>análisis</strong>, <strong>representación</strong> de los datos y <strong>valorización</strong> de los resultados.</p>
+<p>Incluso en ámbitos muy específicos como el <strong>análisis textual</strong>, el <strong>análisis de redes</strong>, el <strong>análisis espaciales</strong> y <strong>cartografía</strong>, el <strong>procesamiento de encuestas</strong>, el <strong>webscrapping</strong> <em>(recopilación automática de datos)</em>, la <strong>producción de documentos</strong> y las <strong>aplicaciones interactivas</strong>, etc.</p>
+<p>numerosas</p>
+ofrecen muchas características adicionales a las funciones primitivas para toda la cadena de procesos.
+</aside>
+<p class="moyp">
+Los <strong>paquetes disponibles permiten operar en toda la cadena de procesamiento</strong>.De la recopilación de datos a la valorización de los resultados (gráfico, documento, sitio web…)
+<P>
+<p><br></p>
+<p class="nrmp">
+<strong>Esta versatilidad</strong> permite que R <strong>complemente</strong>, <strong>compita</strong> o incluso <strong>sustituya</strong> toda una gama de <strong>programas informáticos existentes</strong>.
+</p>
+</section><section id="versátil-1" class="slide level2">
+<h2>Versátil</h2>
+<p><br></p>
+<p align="center">
+<img src="figure/Chaine_traitement_R_white_ES.png"  width="1000"/>
+</p>
+</section><section id="una-gran-comunidad-de-usuarios" class="slide level2">
+<h2>Una gran comunidad de usuarios…</h2>
+<aside class="notes">
+<p><strong>R se está extendiendo gradualmente por todo el mundo</strong></p>
+<p>El número de usuarios de R está creciendo.</p>
+Aunque la mayor parte de la comunidad se encuentra en los países del Norte…
+</aside>
+<p align="center">
+<img src="figure/meetup_group.PNG"  width="950"/>
+</p>
+<p class="xsmallp">
+<a href="https://benubah.github.io/r-community-explorer/rugs.html" class="uri">https://benubah.github.io/r-community-explorer/rugs.html</a>
+</p>
+</section><section id="y-de-compañía" class="slide level2">
+<h2>…y de compañía</h2>
+<p align="center">
+<img src="figure/empreza.PNG"  width="1000"/>
+</p>
+<p class="xsmallp">
+<a href="https://data-flair.training/blogs/r-careers/" class="uri">https://data-flair.training/blogs/r-careers/</a>
+</p>
+</section><section id="fiable" class="slide level2">
+<h2>Fiable</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>Implicación de importantes actores económicos</strong> (<em>R Consortium</em>)</li>
+<li><strong>Comunidad involucrada</strong> e <strong>importante</strong></li>
+<li>El funcionamiento de un <strong>software de código abierto es verificable</strong></li>
+<li>Todos los softwares tienen fallas, pero…</li>
+</ul>
+</ul>
+<aside class="notes">
+<p>¿<strong>Es fiable el software libre</strong>, resultante de múltiples y variadas contribuciones?</p>
+<p>Software propietario no tiene interés en comunicar sus problemas. Normalmente, arregla discretamente el problema en la siguiente actualización.</p>
+<p>, de modo que los problemas se pueden resolver rápidamente.</p>
+<p>Los desarrolladores del mundo libre se aferran a su reputación…</p>
+</aside>
+<br><br />
+
+<p class="moyp">
+<strong>La información circula muy fácilmente en la comunidad de usuarios de software libre</strong>.
+</p>
+</section><section id="trabajo-reproducible" class="slide level2">
+<h2>Trabajo reproducible</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>Un solo software</strong> para <strong>todas las etapas de procesamiento</strong></li>
+<li>Los trabajos son fácilmente <strong>archivados y compartidos</strong> (script)</li>
+<li>Todo lo que necesitas es <strong>un ordenador para reproducirlos…</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+<strong>Reproducibilidad</strong> es <strong>el compartir</strong> y la <strong>transparencia</strong>
+</p>
+</section><section id="los-inconvenientes" class="slide level2">
+<h2>Los inconvenientes</h2>
+<p><br></p>
+<aside class="notes">
+<p>No es un software en el sentido clásico, sino un lenguaje de programación. Funciona con la ayuda de scripts (pequeños programas) editados y ejecutados a medida que el análisis progresa.Los comienzos pueden ser complicados, especialmente para aquellos que nunca han programado antes.</p>
+<p>Sin embargo, <strong>se puede utilizar R sin dominar este lenguaje</strong> Pero el crecimiento exponencial de los usuarios ha tenido un impacto en la documentación producida.</p>
+Según el sistema operativo utilizado, la interfaz del software R es simplista tal vez incluso inexistente.
+</aside>
+<ul>
+<ul>
+<li><strong>R es sobre todo un lenguaje de programación</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>R y los recursos clave están en inglés</strong></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>La interfaz es rudimentaria</strong></li>
+</ul>
+</ul>
+</section></section>
+<section><section id="section-2" class="title-slide slide level1" data-background="figure/Rstudio_logo.png" data-background-size="700px"><h1></h1></section><section id="qué-es-rstudio" class="slide level2">
+<h2>¿Qué es Rstudio?</h2>
+<p><br></p>
+<p class="smallp">
+RStudio es una empresa que desarrolla y publica software y servicios basados en el lenguaje R. <strong>Es el protagonista privado más importante de la comunidad R</strong>.
+</p>
+<aside class="notes">
+<p>americana</p>
+<p>El trabajo de Rstudio esta sin duda responsable de una parte significativa del crecimiento del número de usuarios.</p>
+gratis
+</aside>
+<p class="smallp">
+<strong>Rstudio (o empleado) ha desarrollado varios paquetes de referencia</strong>. <em>Ejemplos:</em>
+</p>
+<ul class="xpucsmall">
+<ul>
+<li><strong>rmarkdown</strong> (<em>producción de documentos</em>)</li>
+<li><strong>shiny</strong> &amp; <strong>flexdashboard</strong> (<em>aplicación web</em> &amp; <em>tablero de mandos</em>)</li>
+<li><strong>ggplot2</strong> (<em>representación gráfica</em>)</li>
+<li><strong>dplyr</strong> &amp; <strong>tidyr</strong> (<em>Manejo de tablas</em>)</li>
+<li><strong>stringr</strong> (<em>Manejo de cadena de caracteres</em>)</li>
+<li>…</li>
+</ul>
+</ul>
+<p><br></p>
+<p class="smallpcenter">
+<strong>Rstudio</strong> también ofrece <strong>un Entorno de Desarrollo Integrado</strong> (<strong>EDI</strong>), que <strong>facilita enormemente el uso de R</strong>.
+</p>
+</section><section id="interfaz-rudimentaria-de-r" class="slide level2">
+<h2>Interfaz rudimentaria de R</h2>
+<div id="left">
+<p align="center">
+<img src="figure/R_wind.PNG"  width="450"/>
+</p>
+<p class="legend" align="center">
+<em>Interfaz R en windows</em>
+</p>
+</div>
+<div id="right">
+<p align="center">
+<img src="figure/R_linux.PNG"  width="450"/>
+</p>
+<p class="legend" align="center">
+<em>No hay interfaz en Linux (terminal)</em>
+</p>
+<p><br></p>
+<p class="smallpcenter">
+<strong>El EDI de Rstudio facilita el aprendizaje y el uso de R</strong> sea mucho más fácil
+</p>
+</div>
+</section><section id="edi-rstudio" class="slide level2">
+<h2>EDI Rstudio</h2>
+<p align="center">
+<img src="figure/ES_Rstudio.png"   width="1000" />
+</p>
+</section><section id="el-edi-rstudio" class="slide level2">
+<h2>El EDI Rstudio</h2>
+<p align="center">
+<img src="figure/Rstudio.PNG"  width="1000" />
+</p>
+</section><section id="puntos-fuertes-del-edi" class="slide level2">
+<h2>Puntos fuertes del EDI</h2>
+<p><br></p>
+<ul class="pucsmall">
+<ul>
+<li><strong>Creación del proyecto</strong></li>
+<li><strong>Funciones convertidas en botones</strong></li>
+<li><strong>Autocompletado</strong></li>
+<li><strong>Atajos de teclado</strong></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="nrmp">
+Porque es <strong>conveniente</strong>, <strong>completo</strong> y en constante <strong>evolución</strong>…
+</p>
+<p><strong>¡Utiliza el entorno de RStudio!</strong></p>
+</section></section>
+<section><section id="instalación" class="title-slide slide level1"><h1>Instalación</h1></section><section id="instalar-r" class="slide level2">
+<h2>Instalar R</h2>
+<p><br></p>
+<p class="moyp">
+<strong>La instalación</strong> de R y el EDI de Rstudio <strong>se hace como cualquier otro software</strong>. Conéctese en <a href="https://cran.r-project.org/">CRAN</a> para descargar R.
+</p>
+<p><br></p>
+<p align="center">
+<img src="figure/Download.PNG"  width="1000"/>
+</p>
+<p class="moyp">
+<a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>
+</p>
+</section><section id="instalar-el-edi-rstudio" class="slide level2">
+<h2>Instalar el EDI Rstudio</h2>
+<p class="moyp2">
+Descargue la <strong>versión ‘Desktop’</strong> en la <a href="https://rstudio.com/">página web de Rstudio</a>
+</p>
+<p align="center">
+<img src="figure/Download_Rstudio.png" width="750" />
+</p>
+<p class="moyp">
+<a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a>
+</p>
+</section><section id="vamos-vamos" class="slide level2">
+<h2>¡Vamos, vamos!</h2>
+<p align="center">
+<img src="figure/programer.png"  width="500"/>
+</p>
+<p><strong>Sólo abre Rstudio</strong> (no R) para empezar</p>
+</section></section>
+<section><section id="section-3" class="title-slide slide level1" data-background="figure/R.png" data-background-size="450px"><h1></h1></section><section id="diapositivas-libres-cc-by-3.0" class="slide level2">
+<h2>Diapositivas libres (CC BY 3.0)</h2>
+<p><br></p>
+<p class="moyp">
+Consulta:
+</p>
+<ul class="xpucsmall">
+<ul>
+<li>Español: <a href="https://hpecout.gitpages.huma-num.fr/R_presentation_SP/" class="uri">https://hpecout.gitpages.huma-num.fr/R_presentation_SP/</a></li>
+<li>Francés: <a href="https://hpecout.gitpages.huma-num.fr/R_presentation_FR/" class="uri">https://hpecout.gitpages.huma-num.fr/R_presentation_FR/</a></li>
+<li>Inglés: <a href="https://hpecout.gitpages.huma-num.fr/R_presentation_EN/" class="uri">https://hpecout.gitpages.huma-num.fr/R_presentation_EN/</a></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="moyp">
+Código fuente:
+</p>
+<ul class="xpucsmall">
+<ul>
+<li>Git - español: <a href="https://gitlab.huma-num.fr/hpecout/R_presentation_SP" class="uri">https://gitlab.huma-num.fr/hpecout/R_presentation_SP</a></li>
+<li>Git - francés: <a href="https://gitlab.huma-num.fr/hpecout/R_presentation_FR" class="uri">https://gitlab.huma-num.fr/hpecout/R_presentation_FR</a></li>
+<li>Git - Inglés: <a href="https://gitlab.huma-num.fr/hpecout/R_presentation_EN" class="uri">https://gitlab.huma-num.fr/hpecout/R_presentation_EN</a></li>
+</ul>
+</ul>
+<p><br></p>
+</section><section id="documentación" class="slide level2">
+<h2>Documentación</h2>
+<p><br></p>
+<aside class="notes">
+<p>Dos desarrolladores famosos en la comunidad R, que trabajan a Rstudio</p>
+</aside>
+<ul class="xpucsmall">
+<ul>
+<li><a href="https://myrbooksp.netlify.com/"><strong><em>Aprender R: iniciación y perfeccionamiento</em></strong></a>, François Rebaudo, 2019 - <em>(traducción)</em></li>
+<li><a href="https://es.r4ds.hadley.nz/"><strong><em>R para Ciencia de Datos</em></strong></a>, H. Wickham y G. Grolemund (Rstudio), 2017 - <em>(traducción)</em></li>
+<li><a href="https://cran.r-project.org/doc/contrib/Santana_El_arte_de_programar_en_R.pdf"><strong><em>El arte de programar en R</em></strong></a>, Julio Sergio Santana y Efraín Mateos Farfán, 2014</li>
+<li><a href="https://cran.r-project.org/doc/contrib/rdebuts_es.pdf"><strong><em>R para principiantes</em></strong></a>, Emmanuel Paradis, 2003 - <em>(traducción)</em></li>
+<li><a href="https://cran.r-project.org/doc/contrib/grafi3.pdf"><strong><em>Gráficos Estadísticos con R</em></strong></a>, Juan Carlos Correa y Nelfi González, 2002</li>
+<li><a href="https://cran.r-project.org/doc/contrib/R-intro-1.1.0-espanol.1.pdf"><strong><em>Introducción a R</em></strong></a>, Andrés González and Silvia González, 2000 - <em>(traducción)</em></li>
+</ul>
+</ul>
+<p><br></p>
+<p class="smallpcenter">
+Para los francófonos, encuentro en <a href="http://rzine.fr" target="_blank">rzine.fr</a>
+</p>
+</section><section id="agradecimientos" class="slide level2">
+<h2>Agradecimientos</h2>
+<p><br></p>
+<p class="moyp">
+<a href="https://github.com/rCarto">Timothée Giraud (CNRS)</a>
+</p>
+<p class="moyp">
+<a href="mailto:violaine.jurie@univ-paris-diderot.fr">Violaine Jurie (Université de Paris)</a>
+</p>
+<p class="moyp">
+<a href="https://github.com/frareb">Francois Rebaudo (IRD)</a>
+</p>
+<p class="moyp">
+<a href="mailto:bruno.condori@ars.usda.gov">Bruno Condori (USDA/ARS)</a>
+</p>
+<p><br> <br></p>
+<div id="left3">
+<p align="center">
+<img src="figure/rmarkdown.png"  width="85"/><img src="figure/knitr.png"  width="85"/>
+</p>
+</div>
+<div id="center2">
+<p class="smallpcenter">
+REVEAL.JS
+</p>
+</div>
+<div id="center3">
+<p class="moyp">
+<img src="figure/gitlab.png"  width="180"/>
+</p>
+</div>
+<div id="right3">
+<p><img src="figure/humanum.png"  width="230"/></p>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="index_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="index_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: true,
+        // Hides the address bar on mobile devices
+        hideAddressBar: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+        menu: {
+          custom: false,
+          themes: false,
+          transitions: false
+        },
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/menu/menu.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
